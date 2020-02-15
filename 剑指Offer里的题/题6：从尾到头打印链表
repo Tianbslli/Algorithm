@@ -1,0 +1,45 @@
+// 面试题6：从尾到头打印链表
+// 题目：输入一个链表的头结点，从尾到头反过来打印出每个结点的值。
+
+/*
+    解法一：
+    很容易想到栈。先全部输出出来压到栈里，再一个个弹出就逆序了。
+
+    解法二：
+    递归。先递归调用下一个节点，再输出当前节点。
+
+*/
+
+#include <stack>
+
+void PrintListReversingly_Iteratively(ListNode* pHead)
+{
+    std::stack<ListNode*> nodes;
+
+    ListNode* pNode = pHead;
+    while(pNode != nullptr)
+    {
+        nodes.push(pNode);
+        pNode = pNode->m_pNext;
+    }
+
+    while(!nodes.empty())
+    {
+        pNode = nodes.top();
+        printf("%d\t", pNode->m_nValue);
+        nodes.pop();
+    }
+}
+
+void PrintListReversingly_Recursively(ListNode* pHead)
+{
+    if(pHead != nullptr)
+    {
+        if (pHead->m_pNext != nullptr)
+        {
+            PrintListReversingly_Recursively(pHead->m_pNext);
+        }
+
+        printf("%d\t", pHead->m_nValue);
+    }
+}

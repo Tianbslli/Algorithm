@@ -54,6 +54,9 @@ bool duplicate(int numbers[], int length, int* duplication)
 /*
     题目2：改了题目为在一个长度为n+1的数组里的所有数字都在1到n的范围内，且不能修改数组......
     方法2：采用二分法。将数组不断的一分为二，如果有重叠的数字，那么数组内在其中一半的范围内的数字肯定不对（n+1的数字在1到n范围内）
+    时间复杂度:O(nlogn)  空间复杂度:O(1)
+    (如果继续用方法1，那就直接创建一个长度为n+1的数组，然后逐一复制过去，如把数字x复制到新数组下标为x的位置，同时判断是否重复了。
+    这种时候就是空间换时间。时间复杂度O(n)，空间复杂度也是O(n))
 */
 
 int countRange(const int* numbers, int length, int start, int end);

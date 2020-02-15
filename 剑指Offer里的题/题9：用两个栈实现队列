@@ -1,0 +1,43 @@
+// 面试题9：用两个栈实现队列
+// 题目：用两个栈实现一个队列。队列的声明如下，请实现它的两个函数appendTail
+// 和deleteHead，分别完成在队列尾部插入结点和在队列头部删除结点的功能。
+
+#include "Queue.h"
+
+/*
+    两个栈实现一个队列。队列是先进先出的，可以把数据都压入栈1，然后弹出压入栈2，栈2再输出就变成先进去的先出来了。
+    然后要是中途有数据要入队，那就让他入栈1。要出队的时候先把栈2的出干净，栈2空了再把当前栈1所有的数压入栈2。
+*/
+
+/*
+    附加题：用两个队列实现栈。
+    入栈的话就都入一个队列里，然后要出栈就把n-1个数都入到另一个队列里，留下最后一个弹出即为出栈（判断条件：queue.size<=1）
+    有新加入的也是入到当前数字所在的队列里，要出栈然后再把n-1压入另一个队列，留下这个新来的弹出，后进先出。
+*/
+
+//入队
+template<typename T> void CQueue<T>::appendTail(const T& element){
+    stack1.push(element);
+}
+
+//出队
+template<typename T> T CQueue<T>::deleteHead(){
+
+    if(stack2.size() <= 0)
+    {
+        while(stack1.size()>0)
+        {
+            T& data = stack1.top();
+            stack1.pop();
+            stack2.push(data);
+        }
+    }
+
+    if(stack2.size() == 0)
+        throw new exception("queue is empty!");
+
+    T head = stack2.top();
+    stack2.pop();
+
+    return head;
+}

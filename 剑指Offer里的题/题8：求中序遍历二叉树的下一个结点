@@ -1,0 +1,54 @@
+// 面试题8：二叉树的下一个结点
+// 题目：给定一棵二叉树和其中的一个结点，如何找出中序遍历顺序的下一个结点？
+// 树中的结点除了有两个分别指向左右子结点的指针以外，还有一个指向父结点的指针。
+
+/*
+解法：因为是中序遍历，所以下一个节点无非三种情况：
+1）当前节点的最深处的左子树。
+2）若无左子树，若它是父结点的左子树，则下一个结点就是它的父结点
+3）若它是父结点的右子树，则要一路推上去，找到这样一个祖先结点，它是它的父结点的左子树，输出这个祖先结点的父结点。
+    比如一路找到根结点，那就说明你找的是这棵树的根结点的左子树的最右边的叶子结点。
+    若是一路找到根结点（没有父结点了），说明你找的是这棵树最右边的叶子，没有下一个结点了
+
+*/
+
+#include <stdio.h>
+
+struct BinaryTreeNode
+{
+    int                    m_nValue;
+    BinaryTreeNode*        m_pLeft;
+    BinaryTreeNode*        m_pRight;
+    BinaryTreeNode*        m_pParent;
+};
+
+BinaryTreeNode* GetNext(BinaryTreeNode* pNode)
+{
+    if(pNode == nullptr)
+        return nullptr;
+
+    BinaryTreeNode* pNext = nullptr;
+    if(pNode->m_pRight != nullptr)
+    {
+        BinaryTreeNode* pRight = pNode->m_pRight;
+        while(pRight->m_pLeft != nullptr)
+            pRight = pRight->m_pLeft;
+
+        pNext = pRight;
+    }
+    else if(pNode->m_pParent != nullptr)
+    {
+        BinaryTreeNode* pCurrent = pNode;
+        BinaryTreeNode* pParent = pNode->m_pParent;
+        //若是父结点的右子树，则一路找上去找到一个左子树结点的父结点。
+        while(pParent != nullptr && pCurrent == pParent->m_pRight)
+        {
+            pCurrent = pParent;
+            pParent = pParent->m_pParent;
+        }
+
+        pNext = pParent;
+    }
+
+    return pNext;
+}
