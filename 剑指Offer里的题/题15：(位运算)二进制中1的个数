@@ -1,0 +1,42 @@
+// 面试题15：二进制中1的个数
+// 题目：请实现一个函数，输入一个整数，输出该数二进制表示中1的个数。例如
+// 把9表示成二进制是1001，有2位是1。因此如果输入9，该函数输出2。
+
+#include <cstdio>
+
+/*
+    编程时多用移位运算来代替除法，整数右移一位和整数除以2结果一样，但效率高很多。
+
+    如果是每次与1做 位与运算 来判断末尾数字是不是1，然后再除掉最后一位。这样做碰到负数（第一位永远是1），就会最终变成0xFFFFFFFF然后死循环。
+    所以考虑负数的情况，应该把用来做 位与运算 的flag每次往左移动一位，直到吧这个1从最右边推到最左边然后消失变为全0，就相当于对目标数字的所有位数都位与了一遍。
+
+*/
+
+
+int NumberOf1_Solution1(int n)
+{
+    int count = 0;
+    unsigned int flag = 1;
+    while (flag)
+    {
+        if (n & flag)
+            count++;
+
+        flag = flag << 1;
+    }
+
+    return count;
+}
+
+int NumberOf1_Solution2(int n)
+{
+    int count = 0;
+
+    while (n)
+    {
+        ++count;
+        n = (n - 1) & n;
+    }
+
+    return count;
+}

@@ -1,0 +1,68 @@
+// 面试题11：旋转数组的最小数字
+// 题目：把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。
+// 输入一个递增排序的数组的一个旋转，输出旋转数组的最小元素。例如数组
+// {3, 4, 5, 1, 2}为{1, 2, 3, 4, 5}的一个旋转，该数组的最小值为1。
+
+/*
+    二分查找的灵活变动。这里的数组是有序数组旋转过的，相当于两个部分的有序数组，而且前一个数组比后一个数组大。
+    给第一个元素一个指针index1，给最后一个元素一个指针index2，然后若中间的指针的数比index1大，
+    则说明中间指针位于前一部分数组；若中间的数字小，则说明中间指针位于后一部分旋转过来的小的数组。然后修改index1为mid或者index2为mid。
+    注意：
+    1）考虑到数组可能未旋转，则应让mid直接初始为第一个数字。（因为最后return mid）
+    2）还有可能0，1，1，1，1旋转为1，0，1，1，1。这种情况就是上面解决不掉的了，所以需要额外加个判断，如果mid==index1==index2，那么就要用顺序查找来老实做（L40）。
+
+*/
+
+#include <cstdio>
+#include <exception>
+
+int MinInOrder(int* numbers, int index1, int index2);
+
+int Min(int* numbers, int length)
+{
+    if(numbers == nullptr || length <= 0)
+        throw new std::exception("Invalid parameters");
+
+    int index1 = 0;
+    int index2 = length - 1;
+    int indexMid = index1;
+    //？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？
+    //这里之所以不用（index1 >= index2）来判断，就是考虑到未旋转的这种情况。（若未旋转应该直接跳过，输出第一个即可）
+    while(numbers[index1] >= numbers[index2])
+    {
+        // 如果index1和index2指向相邻的两个数，
+        // 则index1指向第一个递增子数组的最后一个数字，
+        // index2指向第二个子数组的第一个数字，也就是数组中的最小数字
+        if(index2 - index1 == 1)
+        {
+            indexMid = index2;
+            break;
+        }
+
+        // 如果下标为index1、index2和indexMid指向的三个数字相等，
+        // 则只能顺序查找
+        indexMid = (index1 + index2) / 2;
+        if(numbers[index1] == numbers[index2] && numbers[indexMid] == numbers[index1])
+            return MinInOrder(numbers, index1, index2);
+
+        // 缩小查找范围
+        if(numbers[indexMid] >= numbers[index1])
+            index1 = indexMid;
+        else if(numbers[indexMid] <= numbers[index2])
+            index2 = indexMid;
+    }
+
+    return numbers[indexMid];
+}
+
+int MinInOrder(int* numbers, int index1, int index2)
+{
+    int result = numbers[index1];
+    for(int i = index1 + 1; i <= index2; ++i)
+    {
+        if(result > numbers[i])
+            result = numbers[i];
+    }
+
+    return result;
+}
