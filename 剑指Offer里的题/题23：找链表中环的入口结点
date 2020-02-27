@@ -1,0 +1,70 @@
+// 面试题23：链表中环的入口结点
+// 题目：一个链表中包含环，如何找出环的入口结点？例如，在图3.8的链表中，
+// 环的入口结点是结点3。
+
+#include <cstdio>
+#include "../Utilities/list.h"
+
+/*
+    通过一快一慢指针是否会相遇来判断是否有环。
+    （在循环内先判断快慢指针是否相同，若不相同则先走慢指针，再走快指针两步，这样就不用每走一步快指针都判断是否和慢指针重合了，只用判断是否为空即可）
+
+    然后若相遇，则算出环的长度。快慢指针相遇的地方必在环内，那么留着一个不动，另一个走下去计步数，再回来的时候走的步数就是环的长度。
+    最后让一个指针先走环的长度的步数，另一个再走，这两个相遇的地方即为环的起点。
+*/
+
+ListNode* MeetingNode(ListNode* pHead)
+{
+    if(pHead == nullptr)
+        return nullptr;
+
+    ListNode* pSlow = pHead->m_pNext;
+    if(pSlow == nullptr)
+        return nullptr;
+
+    ListNode* pFast = pSlow->m_pNext;
+    while(pFast != nullptr && pSlow != nullptr)
+    {
+        if(pFast == pSlow)
+            return pFast;
+
+        pSlow = pSlow->m_pNext;
+
+        pFast = pFast->m_pNext;
+        if(pFast != nullptr)
+            pFast = pFast->m_pNext;
+    }
+
+    return nullptr;
+}
+
+ListNode* EntryNodeOfLoop(ListNode* pHead)
+{
+    ListNode* meetingNode = MeetingNode(pHead);
+    if(meetingNode == nullptr)
+        return nullptr;
+
+    // 得到环中结点的数目
+    int nodesInLoop = 1;
+    ListNode* pNode1 = meetingNode;
+    while(pNode1->m_pNext != meetingNode)
+    {
+        pNode1 = pNode1->m_pNext;
+        ++nodesInLoop;
+    }
+
+    // 先移动pNode1，次数为环中结点的数目
+    pNode1 = pHead;
+    for(int i = 0; i < nodesInLoop; ++i)
+        pNode1 = pNode1->m_pNext;
+
+    // 再移动pNode1和pNode2
+    ListNode* pNode2 = pHead;
+    while(pNode1 != pNode2)
+    {
+        pNode1 = pNode1->m_pNext;
+        pNode2 = pNode2->m_pNext;
+    }
+
+    return pNode1;
+}
