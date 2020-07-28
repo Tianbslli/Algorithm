@@ -6,6 +6,11 @@
       <module fileurl="file://$PROJECT_DIR$/002_LiangShuXiangJia/002_LiangShuXiangJia.iml" filepath="$PROJECT_DIR$/002_LiangShuXiangJia/002_LiangShuXiangJia.iml" />
       <module fileurl="file://$PROJECT_DIR$/011_mostWater/011_mostWater.iml" filepath="$PROJECT_DIR$/011_mostWater/011_mostWater.iml" />
       <module fileurl="file://$PROJECT_DIR$/016_nearestThreeNumSum/016_nearestThreeNumSum.iml" filepath="$PROJECT_DIR$/016_nearestThreeNumSum/016_nearestThreeNumSum.iml" />
+      <module fileurl="file://$PROJECT_DIR$/092_reverseBetween/092_reverseBetween.iml" filepath="$PROJECT_DIR$/092_reverseBetween/092_reverseBetween.iml" />
+      <module fileurl="file://$PROJECT_DIR$/143_reorderList/143_reorderList.iml" filepath="$PROJECT_DIR$/143_reorderList/143_reorderList.iml" />
+      <module fileurl="file://$PROJECT_DIR$/17_letterCombinations/17_letterCombinations.iml" filepath="$PROJECT_DIR$/17_letterCombinations/17_letterCombinations.iml" />
+      <module fileurl="file://$PROJECT_DIR$/209_minSubArrayLen/209_minSubArrayLen.iml" filepath="$PROJECT_DIR$/209_minSubArrayLen/209_minSubArrayLen.iml" />
+      <module fileurl="file://$PROJECT_DIR$/23_mergeKLists/23_mergeKLists.iml" filepath="$PROJECT_DIR$/23_mergeKLists/23_mergeKLists.iml" />
       <module fileurl="file://$PROJECT_DIR$/344_ReverseString/344_ReverseString.iml" filepath="$PROJECT_DIR$/344_ReverseString/344_ReverseString.iml" />
       <module fileurl="file://$PROJECT_DIR$/49_sortLetterGroup/49_sortLetterGroup.iml" filepath="$PROJECT_DIR$/49_sortLetterGroup/49_sortLetterGroup.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Algorithm.iml" filepath="$PROJECT_DIR$/.idea/Algorithm.iml" />

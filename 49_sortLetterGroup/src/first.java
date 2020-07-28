@@ -15,7 +15,7 @@ public class first {
         for(String s : strs){
             char[] chars = s.toCharArray();
             Arrays.sort(chars);
-            String key = String.valueOf(chars)
+            String key = String.valueOf(chars);
             if(!ans.containsKey(key)) {
                 ans.put(key,new ArrayList());
             }
